@@ -1,16 +1,20 @@
 {
-  "name": "stocks",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "brazilian-stocks-strategies",
+  "version": "0.0.0",
+  "description": "cli app that shows the best brazilian stocks based on some known strategies",
+  "author": "Mateus Ribeiro Bossa <mateus.rbossa@gmail.com>",
+  "license": "ISC",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "stocks",
+    "strategies",
+    "scrapping"
+  ],
   "devDependencies": {
     "@types/node": "^18.16.1",
     "typescript": "^5.0.4"
