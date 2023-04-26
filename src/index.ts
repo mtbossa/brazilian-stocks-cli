@@ -1,5 +1,6 @@
 console.log("Hello, world!");
 
-let test = "aaaaaaaaaaaaaa ";
+const test = "aaaaaaaaaaaaaa ";
+console.log(test);
 
 export const hello = "Hello, world!";

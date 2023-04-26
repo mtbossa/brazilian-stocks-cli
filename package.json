@@ -14,6 +14,8 @@
     "scripts": {
         "build": "tsc",
         "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "eslint . --max-warnings=0 --report-unused-disable-directives",
+        "lint:fix": "pnpm lint --fix",
         "format": "prettier --write .",
         "prepare": "husky install"
     },
