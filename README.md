@@ -1,4 +1,4 @@
 # Node Typescript scaffolding
 
 Has prettier, eslint, typescript, husky installed.
-Clone with --depth 0
+Clone with --depth 1
