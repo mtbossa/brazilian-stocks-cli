@@ -1,6 +1,6 @@
 import { PromptObject } from "prompts";
 import { Commands } from "src/commands";
-import { AvailableStrategies } from "strategies/available-strategies";
+import { AvailableStrategies } from "src/core/strategies/available-strategies";
 import { Choices } from "./choices";
 
 export const strategySelectionPrompt: PromptObject<Choices.Strategy> = {

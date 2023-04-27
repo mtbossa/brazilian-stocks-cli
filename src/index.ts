@@ -1,8 +1,8 @@
 /* eslint @typescript-eslint/no-floating-promises: 0 */
 import prompts from "prompts";
-import { strategySelectionPrompt } from "./prompts/strategy-selection";
+import { strategySelectionHandler } from "./core/cli/handlers/strategy-selection-handler";
 import { print_program_name } from "./helpers/program_name";
-import { strategySelectionHandler } from "./handlers/strategy-selection-handler";
+import { strategySelectionPrompt } from "./core/cli/prompts/strategy-selection";
 
 (async () => {
     print_program_name();

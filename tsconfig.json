@@ -14,7 +14,7 @@
         "paths": {
             "scrapers/*": ["./src/scrapers/*"],
             "models/*": ["./src/models/*"],
-            "strategies/*": ["./src/strategies/*"]
+            "strategies/*": ["src/core/strategies/*"]
         }
     },
     "exclude": ["node_modules"],

@@ -1,6 +1,6 @@
-import { Stock } from "models/stock";
-import stocksToRemove from "./stocks-to-remove";
+import { Stock } from "src/data/models/stock";
 import { StockWithRank } from "./models/stock-with-rank";
+import stocksToRemove from "./stocks-to-remove";
 
 type Ticker = string;
 type StocksByTicker = Map<Ticker, StockWithRank>;

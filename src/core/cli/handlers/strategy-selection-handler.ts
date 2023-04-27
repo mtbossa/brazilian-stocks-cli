@@ -1,11 +1,11 @@
 import prompts from "prompts";
 import { Choices } from "../prompts/choices";
-import { AvailableStrategies } from "strategies/available-strategies";
+import { AvailableStrategies } from "src/core/strategies/available-strategies";
 import { Spinner } from "cli-spinner";
 import chalk from "chalk";
-import statusInvest from "scrapers/status-invest/status-invest";
-import magicFormula from "strategies/magic-formula/magic-formula";
+import magicFormula from "src/core/strategies/magic-formula/magic-formula";
 import { exit } from "src/helpers/exit";
+import statusInvest from "src/data/scrapers/status-invest/status-invest";
 
 export const strategySelectionHandler = async (answers: prompts.Answers<Choices.Strategy>) => {
     switch (answers[Choices.Strategy]) {
