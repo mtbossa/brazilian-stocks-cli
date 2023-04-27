@@ -39,7 +39,7 @@ class MagicFormula {
         return result;
     }
 
-    setColumsToShow(columnsToShow: AvailableColumns[]) {
+    setColumnsToShow(columnsToShow: AvailableColumns[]) {
         this.columnsToShow = columnsToShow;
 
         return this;
