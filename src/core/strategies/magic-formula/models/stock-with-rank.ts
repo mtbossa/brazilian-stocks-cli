@@ -1,4 +1,4 @@
-import { Stock } from "src/data/models/stock";
+import { Stock } from "@data/models/stock";
 
 interface StockWithRankParams {
     rankEV_EBIT: number;

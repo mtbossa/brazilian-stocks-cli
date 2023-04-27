@@ -1,4 +1,5 @@
 import emoji from "node-emoji";
+
 import { print_new_line } from "./new_line";
 
 export const exit = () => {

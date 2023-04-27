@@ -12,9 +12,10 @@
         "strict": true,
         "skipLibCheck": true,
         "paths": {
-            "scrapers/*": ["./src/scrapers/*"],
-            "models/*": ["./src/models/*"],
-            "strategies/*": ["src/core/strategies/*"]
+            "@core/*": ["./src/core/*"],
+            "@data/*": ["./src/data/*"],
+            "@models/*": ["./src/data/models/*"],
+            "@helpers/*": ["./src/helpers/*"]
         }
     },
     "exclude": ["node_modules"],

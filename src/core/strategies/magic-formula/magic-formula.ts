@@ -1,4 +1,4 @@
-import { Stock } from "src/data/models/stock";
+import { Stock } from "@data/models/stock";
 import { StockWithRank } from "./models/stock-with-rank";
 import stocksToRemove from "./stocks-to-remove";
 

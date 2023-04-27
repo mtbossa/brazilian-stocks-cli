@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 import { tableParser } from "puppeteer-table-parser";
-import { Scraper } from "scrapers/scraper";
-import { Stock } from "models/stock";
+import { Scraper } from "../scraper";
+import { Stock } from "@data/models/stock";
 
 interface Result {
     ticker: string;

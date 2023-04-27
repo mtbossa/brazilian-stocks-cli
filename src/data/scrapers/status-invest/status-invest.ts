@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { Scraper } from "../scraper";
-import { Stock } from "src/data/models/stock";
+import { Stock } from "@data/models/stock";
 
 interface Result {
     companyId: number;
