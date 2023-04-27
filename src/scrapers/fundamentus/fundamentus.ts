@@ -14,6 +14,7 @@ interface Result {
 class FundamentusScraper extends Scraper<Result> {
     async scrape() {
         const browser = await puppeteer.launch({
+            headless: "new",
             args: ["--no-sandbox"],
         });
         const page = await browser.newPage();

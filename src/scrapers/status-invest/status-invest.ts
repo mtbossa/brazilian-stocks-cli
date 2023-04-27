@@ -37,6 +37,7 @@ class StatusInvestScraper extends Scraper<Result> {
     async scrape() {
         puppeteer.use(StealthPlugin());
         const browser = await puppeteer.launch({
+            headless: "new",
             args: ["--no-sandbox"],
         });
         const page = await browser.newPage();
