@@ -8,22 +8,18 @@ import statusInvest from "scrapers/status-invest/status-invest";
 import magicFormula from "strategies/magic-formula/magic-formula";
 import strategySelectionPrompt from "./prompts/strategy-selection";
 import { print_program_name } from "./helpers/program_name";
+import { CHOICE } from "./prompts/choice";
+import { strategySelectionHandler } from "./prompts/handlers/strategy-selection-handler";
+import { Commands } from "./commands";
 
 (async () => {
     print_program_name();
 
-    const response = await prompts(strategySelectionPrompt);
+    const program_ended = false;
 
-    if (response.strategy === AvailableStrategies.MagicFormula) {
-        const spinner = new Spinner(
-            `${chalk.blue.bold("%s")} Calculando ${chalk.green.bold("Magic Formula ranking")}...`
-        );
-        spinner.setSpinnerString(19);
-        spinner.start();
-        const result = await statusInvest.scrape();
-        const parsed = result.map((stock) => statusInvest.parseToStock(stock));
-        const ranked = magicFormula.calculate(parsed);
-        spinner.stop(true);
-        console.table(ranked);
+    while (!program_ended) {
+        const response = await prompts(strategySelectionPrompt);
+
+        await strategySelectionHandler(response);
     }
 })();

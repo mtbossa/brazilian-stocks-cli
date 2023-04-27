@@ -7,6 +7,9 @@ dependencies:
     cli-spinner:
         specifier: ^0.2.10
         version: 0.2.10
+    node-emoji:
+        specifier: ^1.11.0
+        version: 1.11.0
     prompts:
         specifier: ^2.4.2
         version: 2.4.2
@@ -30,6 +33,9 @@ devDependencies:
     "@types/node":
         specifier: ^18.16.1
         version: 18.16.1
+    "@types/node-emoji":
+        specifier: ^1.8.2
+        version: 1.8.2
     "@types/prompts":
         specifier: ^2.4.4
         version: 2.4.4
@@ -329,6 +335,13 @@ packages:
                 integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==,
             }
         dev: false
+
+    /@types/node-emoji@1.8.2:
+        resolution:
+            {
+                integrity: sha512-PfF1qL/9veo8BSHLV84C9ORNr3lHSlnWJ6yU8OdNufoftajeWHTLVbGHvp2B7e7DPDS9gMs6cfeSsqo5rqSitg==,
+            }
+        dev: true
 
     /@types/node@18.16.1:
         resolution:
@@ -2033,6 +2046,13 @@ packages:
             }
         dev: true
 
+    /lodash@4.17.21:
+        resolution:
+            {
+                integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==,
+            }
+        dev: false
+
     /log-update@4.0.0:
         resolution:
             {
@@ -2176,6 +2196,15 @@ packages:
                 integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==,
             }
         dev: true
+
+    /node-emoji@1.11.0:
+        resolution:
+            {
+                integrity: sha512-wo2DpQkQp7Sjm2A0cq+sN7EHKO6Sl0ctXeBdFZrL9T9+UywORbufTcTZxom8YqpLQt/FqNMUkOpkZrJVYSKD3A==,
+            }
+        dependencies:
+            lodash: 4.17.21
+        dev: false
 
     /node-fetch@2.6.7:
         resolution:
