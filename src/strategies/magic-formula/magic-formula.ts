@@ -75,8 +75,8 @@ class MagicFormula {
 
     private rankMagicFormula() {
         return [...this.stocksByTicker.values()].sort((a, b) => {
-            const rankA = a.rankEV_EBIT + a.rankROIC;
-            const rankB = b.rankEV_EBIT + b.rankROIC;
+            const rankA = a.rankEV_EBIT! + a.rankROIC!;
+            const rankB = b.rankEV_EBIT! + b.rankROIC!;
 
             // We do it here so we don't have to reiterate over the array
             // to add the rankMagicFormula property and remove the unwanted columns
@@ -99,9 +99,9 @@ class MagicFormula {
     }
 
     private removeUnwantedColumns(stock: StockWithRank) {
-        Object.keys(stock).forEach((key: keyof StockWithRank) => {
-            if (!this.columnsToShow.includes(key)) {
-                delete stock[key];
+        Object.keys(stock).forEach((key) => {
+            if (!this.columnsToShow.includes(key as keyof StockWithRank)) {
+                delete stock[key as keyof StockWithRank];
             }
         });
     }

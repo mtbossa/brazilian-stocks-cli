@@ -10,9 +10,8 @@
         "scrapping"
     ],
     "main": "dist/index.js",
-    "type": "module",
     "scripts": {
-        "dev": "nodemon --exec ts-node-esm src/index.ts",
+        "dev": "nodemon --exec ts-node-esm -r tsconfig-paths/register src/index.ts",
         "build": "tsc",
         "test": "echo \"Error: no test specified\" && exit 1",
         "lint": "eslint . --max-warnings=0 --report-unused-disable-directives",
@@ -33,12 +32,16 @@
         "nodemon": "^2.0.22",
         "prettier": "2.8.8",
         "ts-node": "^10.9.1",
+        "tsconfig-paths": "^4.2.0",
         "typescript": "^5.0.4"
     },
     "engines": {
         "node": "18.x"
     },
     "dependencies": {
-        "prompts": "^2.4.2"
+        "prompts": "^2.4.2",
+        "puppeteer": "^19.11.1",
+        "puppeteer-extra": "^3.3.6",
+        "puppeteer-extra-plugin-stealth": "^2.11.2"
     }
 }

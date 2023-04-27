@@ -45,7 +45,7 @@ class StatusInvestScraper extends Scraper<Result> {
         const element = await page.waitForSelector(
             '[data-tooltip="Clique para fazer a busca com base nos valores informados"]'
         );
-        await element.click();
+        await element?.click();
 
         const response = await page.waitForResponse((response) =>
             response.url().includes("advancedsearchresult")

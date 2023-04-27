@@ -1,6 +1,9 @@
 /* eslint @typescript-eslint/no-floating-promises: 0 */
 import prompts from "prompts";
-import { print_new_line } from "./helpers/new_line.js";
+import { print_new_line } from "./helpers/new_line";
+import { AvailableStrategies } from "strategies/available-strategies";
+import statusInvest from "scrapers/status-invest/status-invest";
+import magicFormula from "strategies/magic-formula/magic-formula";
 
 (async () => {
     print_new_line();
@@ -12,7 +15,19 @@ import { print_new_line } from "./helpers/new_line.js";
             type: "select",
             name: "strategy",
             message: `Selecione uma estratégia para obter os resultados atuais:`,
-            choices: [{ title: "Magic Formula - Joel Greenblatt", value: "MAGIC_FORMULA" }],
+            choices: [
+                {
+                    title: "Magic Formula - Joel Greenblatt",
+                    value: AvailableStrategies.MagicFormula,
+                },
+            ],
         },
     ]);
+
+    if (response.strategy === AvailableStrategies.MagicFormula) {
+        const result = await statusInvest.scrape();
+        const parsed = result.map((stock) => statusInvest.parseToStock(stock));
+        const ranked = magicFormula.calculate(parsed);
+        console.table(ranked);
+    }
 })();
