@@ -62,7 +62,7 @@ class StatusInvestScraper extends Scraper<Result> {
     parseToStock(data: Result): Stock {
         return new Stock({
             ticker: data.ticker,
-            currentPrice: data.price.toString(),
+            currentPrice: `R$ ${data.price.toString()}`,
             ev_Ebit: data.eV_Ebit,
             roic: data.roic,
             p_L: data.p_L,
