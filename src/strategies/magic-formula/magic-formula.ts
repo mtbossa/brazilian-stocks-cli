@@ -1,12 +1,6 @@
 import { Stock } from "models/stock";
 import stocksToRemove from "./stocks-to-remove";
-
-interface StockWithRank extends Stock {
-    rankEV_EBIT?: number;
-    rankROIC?: number;
-    rankMagicFormula?: number;
-    shouldExclude?: boolean;
-}
+import { StockWithRank } from "./models/stock-with-rank";
 
 type Ticker = string;
 type StocksByTicker = Map<Ticker, StockWithRank>;
@@ -46,14 +40,8 @@ class MagicFormula {
     }
 
     private mapStocksByTicker(stocks: Stock[]): StocksByTicker {
-        return new Map(
-            stocks.map((stock) => [
-                stock.ticker,
-                {
-                    ...stock,
-                    shouldExclude: this.shouldExclude(stock),
-                },
-            ])
+        return new Map<string, StockWithRank>(
+            stocks.map((stock) => [stock.ticker, new StockWithRank(stock)])
         );
     }
 
@@ -75,8 +63,8 @@ class MagicFormula {
 
     private rankMagicFormula() {
         return [...this.stocksByTicker.values()].sort((a, b) => {
-            const rankA = a.rankEV_EBIT! + a.rankROIC!;
-            const rankB = b.rankEV_EBIT! + b.rankROIC!;
+            const rankA = a.rankEV_EBIT + a.rankROIC;
+            const rankB = b.rankEV_EBIT + b.rankROIC;
 
             // We do it here so we don't have to reiterate over the array
             // to add the rankMagicFormula property and remove the unwanted columns
