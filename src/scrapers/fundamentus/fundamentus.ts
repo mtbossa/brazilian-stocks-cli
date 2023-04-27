@@ -22,22 +22,22 @@ class FundamentusScraper extends Scraper<Result> {
         await page.goto("https://www.fundamentus.com.br/buscaavancada.php");
 
         const element1 = await page.waitForSelector('input[name="roic_min"]');
-        await element1.type("0.01");
+        await element1?.type("0.01");
 
         const element2 = await page.waitForSelector('input[name="firma_ebit_min"]');
-        await element2.type("0.01");
+        await element2?.type("0.01");
 
         const element3 = await page.waitForSelector('input[name="liq_min"]');
-        await element3.type("50000");
+        await element3?.type("50000");
 
         // Query for an element handle.
         const element = await page.waitForSelector("input.buscar");
         // Do something with element...
-        await element.click();
+        await element?.click();
 
         await page.waitForNavigation();
         await page.waitForSelector("#resultado");
-        await page.evaluate(() => document.querySelector("#resultado").scrollIntoView());
+        await page.evaluate(() => document.querySelector("#resultado")?.scrollIntoView());
 
         const result: Result[] = await tableParser(page, {
             selector: "#resultado",

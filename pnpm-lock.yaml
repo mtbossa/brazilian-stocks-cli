@@ -13,6 +13,9 @@ dependencies:
     puppeteer-extra-plugin-stealth:
         specifier: ^2.11.2
         version: 2.11.2(puppeteer-extra@3.3.6)
+    puppeteer-table-parser:
+        specifier: ^2.1.0
+        version: 2.1.0(puppeteer@19.11.1)
 
 devDependencies:
     "@types/node":
@@ -2604,6 +2607,17 @@ packages:
             puppeteer: 19.11.1(typescript@5.0.4)
         transitivePeerDependencies:
             - supports-color
+        dev: false
+
+    /puppeteer-table-parser@2.1.0(puppeteer@19.11.1):
+        resolution:
+            {
+                integrity: sha512-2A4Y3wCGkmi7LQAWdIJBVFxrOnJCRgZR1FZbdPlymsvGEdM0+wudRLy5cV2Lsxu3Z1HgXslYtGu4QNr+EyaTWg==,
+            }
+        peerDependencies:
+            puppeteer: ">=10.0.0"
+        dependencies:
+            puppeteer: 19.11.1(typescript@5.0.4)
         dev: false
 
     /puppeteer@19.11.1(typescript@5.0.4):
