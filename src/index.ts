@@ -1,23 +1,15 @@
 import prompts from "prompts";
+import { print_new_line } from "./helpers/new_line.js";
+
+print_new_line();
+console.log("Estratégia de ações brasileiras.");
+print_new_line();
 
 const response = await prompts([
     {
-        type: "text",
-        name: "twitter",
-        message: `What's your twitter handle?`,
-    },
-    {
-        type: "multiselect",
-        name: "color",
-        message: "Pick colors",
-        choices: [
-            { title: "Red", value: "#ff0000" },
-            { title: "Green", value: "#00ff00" },
-            { title: "Blue", value: "#0000ff" },
-        ],
+        type: "select",
+        name: "strategy",
+        message: `Selecione uma estratégia para obter os resultados atuais:`,
+        choices: [{ title: "Magic Formula - Joel Greenblatt", value: "MAGIC_FORMULA" }],
     },
 ]);
-
-console.log({ response });
-
-// => { twitter: 'terkelg', color: [ '#ff0000', '#0000ff' ] }
