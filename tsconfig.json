@@ -15,7 +15,8 @@
             "@core/*": ["./src/core/*"],
             "@data/*": ["./src/data/*"],
             "@models/*": ["./src/data/models/*"],
-            "@helpers/*": ["./src/helpers/*"]
+            "@helpers/*": ["./src/helpers/*"],
+            "@config": ["./src/config"]
         }
     },
     "exclude": ["node_modules"],
