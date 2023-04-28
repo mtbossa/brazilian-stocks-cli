@@ -15,13 +15,15 @@ class MagicFormula {
         "ev_Ebit",
         "roic",
         "currentPrice",
+        "liquidezCorrente",
+        "shouldExclude",
     ];
 
     private stocksByTicker: StocksByTicker = new Map([]);
     private columnsToShow: AvailableColumns[] = this.defaultColumnsToShow;
 
     calculate(stocks: Stock[]) {
-        const filtered = stocks.filter((stock) => !this.shouldExclude(stock));
+        const filtered = stocks.filter((stock) => stock.roic && stock.ev_Ebit);
         this.stocksByTicker = this.mapStocksByTicker(filtered);
         this.rankEV_EBIT();
         this.rankROIC();
@@ -41,7 +43,15 @@ class MagicFormula {
 
     private mapStocksByTicker(stocks: Stock[]): StocksByTicker {
         return new Map<string, StockWithRank>(
-            stocks.map((stock) => [stock.ticker, new StockWithRank(stock)])
+            stocks.map((stock) => [
+                stock.ticker,
+                new StockWithRank(stock, {
+                    shouldExclude: this.shouldExclude(stock),
+                    rankMagicFormula: 0,
+                    rankEV_EBIT: 0,
+                    rankROIC: 0,
+                }),
+            ])
         );
     }
 
