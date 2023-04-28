@@ -29,7 +29,7 @@ export const strategySelectionHandler = async (answers: prompts.Answers<Choices.
 
             spinner.stop(true);
 
-            console.table(ranked);
+            console.table(ranked.reverse());
 
             break;
         }
