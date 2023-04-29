@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model Sector {
+    id         Int         @id @default(autoincrement())
+    name       String      @unique
+    subsectors Subsector[]
+}
+
+model Subsector {
+    id       Int       @id @default(autoincrement())
+    name     String    @unique
+    sector   Sector    @relation(fields: [sectorId], references: [id])
+    sectorId Int
+    segments Segment[]
+}
+
+model Segment {
+    id          Int           @id @default(autoincrement())
+    name        String        @unique
+    subsector   Subsector     @relation(fields: [subsectorId], references: [id])
+    subsectorId Int
+    companies   CompanyCode[]
+}
+
+model CompanyCode {
+    id        Int     @id @default(autoincrement())
+    code      String  @unique
+    segment   Segment @relation(fields: [segmentId], references: [id])
+    segmentId Int
+}
