@@ -25,15 +25,16 @@ model Subsector {
 }
 
 model Segment {
-    id          Int           @id @default(autoincrement())
-    name        String        @unique
-    subsector   Subsector     @relation(fields: [subsectorId], references: [id])
+    id          Int       @id @default(autoincrement())
+    name        String    @unique
+    subsector   Subsector @relation(fields: [subsectorId], references: [id])
     subsectorId Int
-    companies   CompanyCode[]
+    companies   Company[]
 }
 
-model CompanyCode {
+model Company {
     id        Int     @id @default(autoincrement())
+    name      String  @unique
     code      String  @unique
     segment   Segment @relation(fields: [segmentId], references: [id])
     segmentId Int

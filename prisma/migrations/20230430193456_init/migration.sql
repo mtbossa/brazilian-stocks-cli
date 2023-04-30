@@ -21,11 +21,12 @@ CREATE TABLE "Segment" (
 );
 
 -- CreateTable
-CREATE TABLE "CompanyCode" (
+CREATE TABLE "Company" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "segmentId" INTEGER NOT NULL,
-    CONSTRAINT "CompanyCode_segmentId_fkey" FOREIGN KEY ("segmentId") REFERENCES "Segment" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Company_segmentId_fkey" FOREIGN KEY ("segmentId") REFERENCES "Segment" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex
@@ -38,4 +39,7 @@ CREATE UNIQUE INDEX "Subsector_name_key" ON "Subsector"("name");
 CREATE UNIQUE INDEX "Segment_name_key" ON "Segment"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "CompanyCode_code_key" ON "CompanyCode"("code");
+CREATE UNIQUE INDEX "Company_name_key" ON "Company"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Company_code_key" ON "Company"("code");
