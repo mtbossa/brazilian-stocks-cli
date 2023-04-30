@@ -45,6 +45,7 @@
         "@prisma/client": "4.13.0",
         "chalk": "^4.x",
         "cli-spinner": "^0.2.10",
+        "csv-parser": "^3.0.0",
         "node-emoji": "^1.11.0",
         "prompts": "^2.4.2",
         "puppeteer": "^19.11.1",

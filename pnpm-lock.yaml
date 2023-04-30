@@ -10,6 +10,9 @@ dependencies:
     cli-spinner:
         specifier: ^0.2.10
         version: 0.2.10
+    csv-parser:
+        specifier: ^3.0.0
+        version: 3.0.0
     node-emoji:
         specifier: ^1.11.0
         version: 1.11.0
@@ -1048,6 +1051,17 @@ packages:
             shebang-command: 2.0.0
             which: 2.0.2
         dev: true
+
+    /csv-parser@3.0.0:
+        resolution:
+            {
+                integrity: sha512-s6OYSXAK3IdKqYO33y09jhypG/bSDHPuyCme/IdEHfWpLf/jKcpitVFyOC6UemgGk8v7Q5u2XE0vvwmanxhGlQ==,
+            }
+        engines: { node: ">= 10" }
+        hasBin: true
+        dependencies:
+            minimist: 1.2.8
+        dev: false
 
     /debug@3.2.7(supports-color@5.5.0):
         resolution:
@@ -2187,7 +2201,6 @@ packages:
             {
                 integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==,
             }
-        dev: true
 
     /mitt@3.0.0:
         resolution:
