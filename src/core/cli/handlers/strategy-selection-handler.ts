@@ -9,6 +9,7 @@ import statusInvest from "@data/scrapers/status-invest/status-invest";
 import magicFormula from "@core/strategies/magic-formula/magic-formula";
 import config from "@config";
 import { print_new_line } from "@helpers/new_line";
+import { Stock } from "@data/models/stock";
 
 export const strategySelectionHandler = async (answers: prompts.Answers<Choices.Strategy>) => {
     switch (answers[Choices.Strategy]) {
@@ -24,8 +25,15 @@ export const strategySelectionHandler = async (answers: prompts.Answers<Choices.
             spinner.start();
 
             const result = await statusInvest.scrape();
-            const parsed = result.map((stock) => statusInvest.parseToStock(stock));
-            const ranked = magicFormula.calculate(parsed);
+
+            const stocks: Stock[] = [];
+
+            for (const stock of result) {
+                const parsed = await statusInvest.parseToStock(stock);
+                stocks.push(parsed);
+            }
+
+            const ranked = magicFormula.calculate(stocks);
 
             spinner.stop(true);
 

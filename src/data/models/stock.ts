@@ -10,6 +10,9 @@ type StockParams = {
     readonly companyName?: string;
     readonly volume2Months?: string;
     readonly liquidezCorrente?: number;
+    readonly setor?: string;
+    readonly subsetor?: string;
+    readonly segmento?: string;
 };
 
 export class Stock {
@@ -24,6 +27,9 @@ export class Stock {
     public readonly companyName?: string;
     public readonly volume2Months?: string;
     public readonly liquidezCorrente?: number;
+    public readonly setor?: string;
+    public readonly subsetor?: string;
+    public readonly segmento?: string;
 
     constructor(properties: StockParams) {
         this.ticker = properties.ticker;
@@ -32,10 +38,13 @@ export class Stock {
         this.p_VP = properties.p_VP;
         this.p_Ebit = properties.p_Ebit;
         this.p_Ativo = properties.p_Ativo;
-        this.ev_Ebit = properties.ev_Ebit;
-        this.roic = properties.roic;
+        this.ev_Ebit = properties.ev_Ebit || 0;
+        this.roic = properties.roic || 0;
         this.companyName = properties.companyName;
-        this.volume2Months = properties.volume2Months;
-        this.liquidezCorrente = properties.liquidezCorrente;
+        this.volume2Months = properties.volume2Months || "";
+        this.liquidezCorrente = properties.liquidezCorrente || 0;
+        this.setor = properties.setor || "";
+        this.subsetor = properties.subsetor || "";
+        this.segmento = properties.segmento || "";
     }
 }

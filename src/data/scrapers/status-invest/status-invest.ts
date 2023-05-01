@@ -2,6 +2,7 @@ import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { Scraper } from "../scraper";
 import { Stock } from "@data/models/stock";
+import { prismaClient } from "@data/db";
 
 interface Result {
     companyId: number;
@@ -59,7 +60,26 @@ class StatusInvestScraper extends Scraper<Result> {
         return result;
     }
 
-    parseToStock(data: Result): Stock {
+    async parseToStock(data: Result): Promise<Stock> {
+        const company = await prismaClient.company.findFirst({
+            where: {
+                code: {
+                    startsWith: data.ticker.replace(/[0-9]/g, ""),
+                },
+            },
+            include: {
+                segment: {
+                    include: {
+                        subsector: {
+                            include: {
+                                sector: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+
         return new Stock({
             ticker: data.ticker,
             currentPrice: `R$ ${data.price.toString()}`,
@@ -71,6 +91,9 @@ class StatusInvestScraper extends Scraper<Result> {
             p_Ativo: data.p_Ativo,
             companyName: data.companyName,
             liquidezCorrente: data.liquidezCorrente,
+            segmento: company?.segment?.name,
+            subsetor: company?.segment?.subsector?.name,
+            setor: company?.segment?.subsector?.sector?.name,
         });
     }
 }

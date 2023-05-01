@@ -17,6 +17,9 @@ class MagicFormula {
         "currentPrice",
         "liquidezCorrente",
         "shouldExclude",
+        "setor",
+        "subsetor",
+        "segmento",
     ];
 
     private stocksByTicker: StocksByTicker = new Map([]);
