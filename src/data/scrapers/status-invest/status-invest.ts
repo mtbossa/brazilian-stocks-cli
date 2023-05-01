@@ -4,18 +4,23 @@ import { Scraper } from "../scraper";
 import { Stock } from "@data/models/stock";
 import { prismaClient } from "@data/db";
 
-interface Result {
+export interface Result {
     companyId: number;
     companyName: string;
     ticker: string;
     price: number;
     p_L: number;
+    dy: number;
     p_VP: number;
     p_Ebit: number;
     p_Ativo: number;
     eV_Ebit: number;
     margemBruta: number;
     margemEbit: number;
+    peg_Ratio: number;
+    receitas_Cagr5: number;
+    lucros_Cagr5: number;
+    liquidezMediaDiaria: number;
     margemLiquida: number;
     p_SR: number;
     p_CapitalGiro: number;
