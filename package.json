@@ -53,7 +53,8 @@
         "puppeteer": "^19.11.1",
         "puppeteer-extra": "^3.3.6",
         "puppeteer-extra-plugin-stealth": "^2.11.2",
-        "puppeteer-table-parser": "^2.1.0"
+        "puppeteer-table-parser": "^2.1.0",
+        "table": "^6.8.1"
     },
     "prisma": {
         "seed": "pnpm ts-node prisma/seed.ts"

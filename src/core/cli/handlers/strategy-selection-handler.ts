@@ -10,6 +10,7 @@ import magicFormula from "@core/strategies/magic-formula/magic-formula";
 import config from "@config";
 import { print_new_line } from "@helpers/new_line";
 import { Stock } from "@data/models/stock";
+import { table, TableUserConfig } from "table";
 
 export const strategySelectionHandler = async (answers: prompts.Answers<Choices.Strategy>) => {
     switch (answers[Choices.Strategy]) {
@@ -35,9 +36,68 @@ export const strategySelectionHandler = async (answers: prompts.Answers<Choices.
 
             const ranked = magicFormula.calculate(stocks);
 
-            spinner.stop(true);
+            const table_config: TableUserConfig = {
+                columns: {
+                    3: {
+                        width: 5,
+                    },
+                    6: {
+                        width: 5,
+                    },
+                    7: {
+                        width: 20,
+                    },
+                    8: {
+                        width: 20,
+                    },
+                    9: {
+                        width: 20,
+                    },
+                    10: {
+                        width: 5,
+                    },
+                },
+            };
 
-            console.table(ranked.reverse());
+            console.log(
+                table(
+                    [
+                        [
+                            "Ticker",
+                            "Preço",
+                            "EV/EBIT",
+                            "Rank EV/EBIT",
+                            "ROIC",
+                            "Rank ROIC",
+                            "Rank Magic Formula",
+                            "Setor",
+                            "Subsetor",
+                            "Segmento",
+                            "Deve excluir?",
+                        ],
+                        ...ranked
+                            .map((stock) => {
+                                return [
+                                    stock.ticker,
+                                    stock.currentPrice,
+                                    stock.ev_Ebit,
+                                    stock.rankEV_EBIT,
+                                    stock.roic,
+                                    stock.rankROIC,
+                                    stock.rankMagicFormula,
+                                    stock.setor,
+                                    stock.subsetor,
+                                    stock.segmento,
+                                    stock.shouldExclude ? "Sim" : "Não",
+                                ];
+                            })
+                            .reverse(),
+                    ],
+                    table_config
+                )
+            );
+
+            spinner.stop(true);
 
             break;
         }

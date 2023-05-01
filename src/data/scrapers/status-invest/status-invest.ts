@@ -4,6 +4,7 @@ import { Scraper } from "../scraper";
 import { Stock } from "@data/models/stock";
 import { prismaClient } from "@data/db";
 import scrapeResult from "./fixtures/result.json";
+import { print_new_line } from "@helpers/new_line";
 
 export interface Result {
     companyId: number;
@@ -43,6 +44,7 @@ export interface Result {
 class StatusInvestScraper extends Scraper<Result> {
     async scrape() {
         if (process.env.OFFLINE_MODE === "true") {
+            print_new_line();
             console.log("Offline mode is on, using fixtures");
             return scrapeResult as Result[];
         }

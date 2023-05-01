@@ -31,6 +31,9 @@ dependencies:
     puppeteer-table-parser:
         specifier: ^2.1.0
         version: 2.1.0(puppeteer@19.11.1)
+    table:
+        specifier: ^6.8.1
+        version: 6.8.1
 
 devDependencies:
     "@types/cli-spinner":
@@ -641,6 +644,18 @@ packages:
             uri-js: 4.4.1
         dev: true
 
+    /ajv@8.12.0:
+        resolution:
+            {
+                integrity: sha512-sRu1kpcO9yLtYxBKvqfTeh9KzZEwO3STyX1HT+4CaDzC6HpTGYhIhPIzj9XuKU7KYDwnaeh5hcOwjy1QuJzBPA==,
+            }
+        dependencies:
+            fast-deep-equal: 3.1.3
+            json-schema-traverse: 1.0.0
+            require-from-string: 2.0.2
+            uri-js: 4.4.1
+        dev: false
+
     /ansi-escapes@4.3.2:
         resolution:
             {
@@ -739,7 +754,6 @@ packages:
                 integrity: sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==,
             }
         engines: { node: ">=8" }
-        dev: true
 
     /balanced-match@1.0.2:
         resolution:
@@ -1414,7 +1428,6 @@ packages:
             {
                 integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==,
             }
-        dev: true
 
     /fast-diff@1.2.0:
         resolution:
@@ -1936,6 +1949,13 @@ packages:
             }
         dev: true
 
+    /json-schema-traverse@1.0.0:
+        resolution:
+            {
+                integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==,
+            }
+        dev: false
+
     /json-stable-stringify-without-jsonify@1.0.1:
         resolution:
             {
@@ -2096,6 +2116,13 @@ packages:
                 integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==,
             }
         dev: true
+
+    /lodash.truncate@4.4.2:
+        resolution:
+            {
+                integrity: sha512-jttmRe7bRse52OsWIMDLaXxWqRAmtIUccAQ3garviCqJjafXOfNMO0yMfNpdD6zbGaTU0P5Nz7e7gAT6cKmJRw==,
+            }
+        dev: false
 
     /lodash@4.17.21:
         resolution:
@@ -2570,7 +2597,6 @@ packages:
                 integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==,
             }
         engines: { node: ">=6" }
-        dev: true
 
     /puppeteer-core@19.11.1(typescript@5.0.4):
         resolution:
@@ -2792,6 +2818,14 @@ packages:
         engines: { node: ">=0.10.0" }
         dev: false
 
+    /require-from-string@2.0.2:
+        resolution:
+            {
+                integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==,
+            }
+        engines: { node: ">=0.10.0" }
+        dev: false
+
     /resolve-from@4.0.0:
         resolution:
             {
@@ -2971,7 +3005,6 @@ packages:
             ansi-styles: 4.3.0
             astral-regex: 2.0.0
             is-fullwidth-code-point: 3.0.0
-        dev: true
 
     /slice-ansi@5.0.0:
         resolution:
@@ -3084,6 +3117,20 @@ packages:
         engines: { node: ">=8" }
         dependencies:
             has-flag: 4.0.0
+
+    /table@6.8.1:
+        resolution:
+            {
+                integrity: sha512-Y4X9zqrCftUhMeH2EptSSERdVKt/nEdijTOacGD/97EKjhQ/Qs8RTlEGABSJNNN8lac9kheH+af7yAkEWlgneA==,
+            }
+        engines: { node: ">=10.0.0" }
+        dependencies:
+            ajv: 8.12.0
+            lodash.truncate: 4.4.2
+            slice-ansi: 4.0.0
+            string-width: 4.2.3
+            strip-ansi: 6.0.1
+        dev: false
 
     /tar-fs@2.1.1:
         resolution:
@@ -3290,7 +3337,6 @@ packages:
             }
         dependencies:
             punycode: 2.3.0
-        dev: true
 
     /util-deprecate@1.0.2:
         resolution:
