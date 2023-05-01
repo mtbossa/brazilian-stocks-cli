@@ -3,7 +3,7 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { Scraper } from "../scraper";
 import { Stock } from "@data/models/stock";
 import { prismaClient } from "@data/db";
-import scrapeResult from "./fixtures/result";
+import scrapeResult from "./fixtures/result.json";
 
 export interface Result {
     companyId: number;
@@ -11,7 +11,7 @@ export interface Result {
     ticker: string;
     price: number;
     p_L: number;
-    dy: number;
+    dy?: number;
     p_VP: number;
     p_Ebit: number;
     p_Ativo: number;
@@ -43,7 +43,8 @@ export interface Result {
 class StatusInvestScraper extends Scraper<Result> {
     async scrape() {
         if (process.env.OFFLINE_MODE === "true") {
-            return scrapeResult;
+            console.log("Offline mode is on, using fixtures");
+            return scrapeResult as Result[];
         }
 
         puppeteer.use(StealthPlugin());
