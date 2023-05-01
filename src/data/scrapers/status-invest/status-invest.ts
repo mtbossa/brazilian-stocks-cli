@@ -3,6 +3,7 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { Scraper } from "../scraper";
 import { Stock } from "@data/models/stock";
 import { prismaClient } from "@data/db";
+import scrapeResult from "./fixtures/result";
 
 export interface Result {
     companyId: number;
@@ -41,6 +42,10 @@ export interface Result {
 
 class StatusInvestScraper extends Scraper<Result> {
     async scrape() {
+        if (process.env.OFFLINE_MODE === "true") {
+            return scrapeResult;
+        }
+
         puppeteer.use(StealthPlugin());
         const browser = await puppeteer.launch({
             headless: "new",
