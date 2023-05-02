@@ -1,3 +1,3 @@
 export enum Choices {
-    Strategy = "STRATEGY",
+    MagicFormula = "MAGIC_FORMULA",
 }

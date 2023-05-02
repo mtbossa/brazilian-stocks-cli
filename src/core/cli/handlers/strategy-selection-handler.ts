@@ -3,18 +3,18 @@ import { Spinner } from "cli-spinner";
 import chalk from "chalk";
 
 import { exit } from "@helpers/exit";
-import { Choices } from "@core/cli/prompts/strategy-selection/choices";
-import { AvailableStrategies } from "@core/strategies/available-strategies";
 import statusInvest from "@data/scrapers/status-invest/status-invest";
 import magicFormula from "@core/strategies/magic-formula/magic-formula";
 import config from "@config";
 import { Stock } from "@data/models/stock";
 import * as Table from "table";
 import { printer } from "../printer";
+import { PromptName } from "../prompts/strategy-selection/prompt-name";
+import { Choices } from "../prompts/strategy-selection";
 
-export const strategySelectionHandler = async (answers: prompts.Answers<Choices.Strategy>) => {
-    switch (answers[Choices.Strategy]) {
-        case AvailableStrategies.MagicFormula: {
+export const strategySelectionHandler = async (answers: prompts.Answers<PromptName.Name>) => {
+    switch (answers[PromptName.Name]) {
+        case Choices.MagicFormula: {
             const spinner = new Spinner(
                 `${chalk.blue.bold("%s")} Calculando ranking da ${chalk.green.bold(
                     "Magic Formula"
@@ -36,29 +36,6 @@ export const strategySelectionHandler = async (answers: prompts.Answers<Choices.
 
             spinner.stop(true);
 
-            const table_config: Table.TableUserConfig = {
-                columns: {
-                    3: {
-                        width: 5,
-                    },
-                    6: {
-                        width: 5,
-                    },
-                    7: {
-                        width: 20,
-                    },
-                    8: {
-                        width: 20,
-                    },
-                    9: {
-                        width: 20,
-                    },
-                    10: {
-                        width: 5,
-                    },
-                },
-            };
-
             const headers = [
                 "Ticker",
                 "Preço",
@@ -72,45 +49,6 @@ export const strategySelectionHandler = async (answers: prompts.Answers<Choices.
                 "Segmento",
                 "Deve excluir?",
             ];
-
-            // console.log(
-            //     Table.table(
-            //         [
-            //             [
-            //                 "Ticker",
-            //                 "Preço",
-            //                 "EV/EBIT",
-            //                 "Rank EV/EBIT",
-            //                 "ROIC",
-            //                 "Rank ROIC",
-            //                 "Rank Magic Formula",
-            //                 "Setor",
-            //                 "Subsetor",
-            //                 "Segmento",
-            //                 "Deve excluir?",
-            //             ],
-            //             ...ranked
-            //                 .map((stock) => {
-            //                     return [
-            //                         stock.ticker,
-            //                         stock.currentPrice,
-            //                         stock.ev_Ebit,
-            //                         stock.rankEV_EBIT,
-            //                         stock.roic,
-            //                         stock.rankROIC,
-            //                         stock.rankMagicFormula,
-            //                         stock.setor,
-            //                         stock.subsetor,
-            //                         stock.segmento,
-            //                         stock.shouldExclude ? "Sim" : "Não",
-            //                     ];
-            //                 })
-            //                 .reverse(),
-            //         ],
-            //         table_config
-            //     )
-            // );
-
             const stream_config: Table.StreamUserConfig = {
                 columnDefault: {
                     width: 10,
@@ -139,6 +77,7 @@ export const strategySelectionHandler = async (answers: prompts.Answers<Choices.
             };
 
             await printer
+                .resetLastSelectedChoice()
                 .setHeaders(headers)
                 .setTableConfig(stream_config)
                 .setRows(

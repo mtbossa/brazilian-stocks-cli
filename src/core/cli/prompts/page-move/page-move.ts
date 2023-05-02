@@ -1,17 +1,16 @@
 import prompts, { PromptObject } from "prompts";
-import { AvailableStrategies } from "@core/strategies/available-strategies";
 import { Commands } from "src/commands";
 import { PromptName } from "./prompt-name";
 import { Choices } from "./choices";
 
 export const pageMovePrompt: (
     currentPage: number,
-    amountPerPage: number,
-    totalPages: number
+    totalPages: number,
+    lastSelectedChoice?: Choices | Commands
 ) => PromptObject<PromptName.Name> = (
     currentPage: number,
-    amountPerPage: number,
-    totalPages: number
+    totalPages: number,
+    lastSelectedChoice?: Choices | Commands
 ) => {
     const choices: prompts.Choice[] = [];
 
@@ -41,20 +40,25 @@ export const pageMovePrompt: (
         });
     }
 
+    choices.push(
+        {
+            title: "Voltar para estratégias",
+            value: Commands.BackToMenu,
+            selected: true,
+        },
+        {
+            title: "Sair do programa",
+            value: Commands.Exit,
+        }
+    );
+
+    const initial = choices.findIndex((choice) => choice.value === lastSelectedChoice);
+
     return {
         type: "select",
         name: PromptName.Name,
-        message: `Selecione uma estratégia para obter os resultados atuais:`,
-        choices: [
-            ...choices,
-            {
-                title: "Voltar para estratégias",
-                value: Commands.BackToMenu,
-            },
-            {
-                title: "Sair do programa",
-                value: Commands.Exit,
-            },
-        ],
+        message: `Selecione uma opção:`,
+        initial: initial > -1 ? initial : 0,
+        choices,
     };
 };

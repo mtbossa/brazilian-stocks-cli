@@ -2,10 +2,9 @@ import { print_new_line } from "@helpers/new_line";
 import prompts from "prompts";
 import * as Table from "table";
 import { PromptName, pageMovePrompt } from "./prompts/page-move";
-import { Choices } from "./prompts/page-move/choices";
-import { Commands } from "src/commands";
-import { exit } from "@helpers/exit";
 import { PageMoveResult, pageMoveHandler } from "./handlers/page-move-handler";
+import { Choices } from "./prompts/page-move/choices";
+import { log } from "console";
 
 class Printer {
     private currentPage = 1;
@@ -13,6 +12,7 @@ class Printer {
     private headers: string[] = [];
     private rows: string[][] = [];
     private table_config?: Table.StreamUserConfig;
+    private lastSelectedChoice?: Choices;
 
     public setHeaders(headers: string[]) {
         this.headers = headers;
@@ -26,6 +26,11 @@ class Printer {
 
     public setTableConfig(table_config: Table.StreamUserConfig) {
         this.table_config = table_config;
+        return this;
+    }
+
+    public resetLastSelectedChoice() {
+        this.lastSelectedChoice = undefined;
         return this;
     }
 
@@ -53,8 +58,9 @@ class Printer {
 
     private async askNextPage() {
         const response = await prompts(
-            pageMovePrompt(this.currentPage, this.amountPerPage, this.getTotalNumberOfPages())
+            pageMovePrompt(this.currentPage, this.getTotalNumberOfPages(), this.lastSelectedChoice)
         );
+        this.lastSelectedChoice = response[PromptName.Name];
 
         const result = await pageMoveHandler(response);
 
@@ -76,6 +82,8 @@ class Printer {
                 this.currentPage = this.getTotalNumberOfPages();
                 break;
         }
+
+        console.clear();
 
         await this.printTable();
     }
