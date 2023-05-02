@@ -37,6 +37,7 @@ export const strategySelectionHandler = async (answers: prompts.Answers<PromptNa
             spinner.stop(true);
 
             const headers = [
+                "Posição",
                 "Ticker",
                 "Preço",
                 "EV/EBIT",
@@ -54,6 +55,9 @@ export const strategySelectionHandler = async (answers: prompts.Answers<PromptNa
                     width: 10,
                 },
                 columns: {
+                    0: {
+                        width: 3,
+                    },
                     3: {
                         width: 5,
                     },
@@ -81,8 +85,9 @@ export const strategySelectionHandler = async (answers: prompts.Answers<PromptNa
                 .setHeaders(headers)
                 .setTableConfig(stream_config)
                 .setRows(
-                    ranked.map((stock) => {
+                    ranked.map((stock, index) => {
                         return [
+                            String(index + 1),
                             String(stock.ticker),
                             String(stock.currentPrice),
                             String(stock.ev_Ebit),
@@ -93,7 +98,11 @@ export const strategySelectionHandler = async (answers: prompts.Answers<PromptNa
                             String(stock.setor),
                             String(stock.subsetor),
                             String(stock.segmento),
-                            String(stock.shouldExclude ? "Sim" : "Não"),
+                            String(
+                                stock.shouldExclude
+                                    ? chalk.bold.red("Sim")
+                                    : chalk.bold.green("Não")
+                            ),
                         ];
                     })
                 )
