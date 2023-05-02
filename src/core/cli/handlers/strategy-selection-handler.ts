@@ -3,7 +3,7 @@ import { Spinner } from "cli-spinner";
 import chalk from "chalk";
 
 import { exit } from "@helpers/exit";
-import { Choices } from "@core/cli/prompts/choices";
+import { Choices } from "@core/cli/prompts/strategy-selection/choices";
 import { AvailableStrategies } from "@core/strategies/available-strategies";
 import statusInvest from "@data/scrapers/status-invest/status-invest";
 import magicFormula from "@core/strategies/magic-formula/magic-formula";
@@ -138,25 +138,27 @@ export const strategySelectionHandler = async (answers: prompts.Answers<Choices.
                 columnCount: headers.length,
             };
 
-            printer.printTable(
-                headers,
-                ranked.map((stock) => {
-                    return [
-                        String(stock.ticker),
-                        String(stock.currentPrice),
-                        String(stock.ev_Ebit),
-                        String(stock.rankEV_EBIT),
-                        String(stock.roic),
-                        String(stock.rankROIC),
-                        String(stock.rankMagicFormula),
-                        String(stock.setor),
-                        String(stock.subsetor),
-                        String(stock.segmento),
-                        String(stock.shouldExclude ? "Sim" : "Não"),
-                    ];
-                }),
-                stream_config
-            );
+            await printer
+                .setHeaders(headers)
+                .setTableConfig(stream_config)
+                .setRows(
+                    ranked.map((stock) => {
+                        return [
+                            String(stock.ticker),
+                            String(stock.currentPrice),
+                            String(stock.ev_Ebit),
+                            String(stock.rankEV_EBIT),
+                            String(stock.roic),
+                            String(stock.rankROIC),
+                            String(stock.rankMagicFormula),
+                            String(stock.setor),
+                            String(stock.subsetor),
+                            String(stock.segmento),
+                            String(stock.shouldExclude ? "Sim" : "Não"),
+                        ];
+                    })
+                )
+                .printTable();
 
             break;
         }
