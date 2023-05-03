@@ -15,6 +15,8 @@ import { Choices } from "../prompts/strategy-selection";
 export const strategySelectionHandler = async (answers: prompts.Answers<PromptName.Name>) => {
     switch (answers[PromptName.Name]) {
         case Choices.MagicFormula: {
+            console.clear();
+
             const spinner = new Spinner(
                 `${chalk.blue.bold("%s")} Calculando ranking da ${chalk.green.bold(
                     "Magic Formula"
@@ -36,6 +38,8 @@ export const strategySelectionHandler = async (answers: prompts.Answers<PromptNa
 
             spinner.stop(true);
 
+            console.clear();
+
             const headers = [
                 "Posição",
                 "Ticker",
@@ -45,6 +49,7 @@ export const strategySelectionHandler = async (answers: prompts.Answers<PromptNa
                 "ROIC",
                 "Rank ROIC",
                 "Rank Magic Formula",
+                "Liquidez Média Diária",
                 "Setor",
                 "Subsetor",
                 "Segmento",
@@ -53,27 +58,37 @@ export const strategySelectionHandler = async (answers: prompts.Answers<PromptNa
             const stream_config: Table.StreamUserConfig = {
                 columnDefault: {
                     width: 10,
+                    wrapWord: true,
                 },
                 columns: {
                     0: {
                         width: 3,
                     },
-                    3: {
+                    1: {
+                        width: 6,
+                    },
+                    4: {
                         width: 5,
                     },
                     6: {
                         width: 5,
                     },
                     7: {
-                        width: 20,
+                        width: 5,
                     },
                     8: {
-                        width: 20,
+                        width: 13,
                     },
                     9: {
                         width: 20,
                     },
                     10: {
+                        width: 20,
+                    },
+                    11: {
+                        width: 20,
+                    },
+                    12: {
                         width: 5,
                     },
                 },
@@ -82,7 +97,7 @@ export const strategySelectionHandler = async (answers: prompts.Answers<PromptNa
 
             await printer
                 .resetLastSelectedChoice()
-                .setHeaders(headers)
+                .setHeaders(headers.map((header) => chalk.bold(header)))
                 .setTableConfig(stream_config)
                 .setRows(
                     ranked.map((stock, index) => {
@@ -90,11 +105,16 @@ export const strategySelectionHandler = async (answers: prompts.Answers<PromptNa
                             String(index + 1),
                             String(stock.ticker),
                             String(stock.currentPrice),
-                            String(stock.ev_Ebit),
+                            stock.ev_Ebit <= 0
+                                ? chalk.red(String(stock.ev_Ebit))
+                                : chalk.green(String(stock.ev_Ebit)),
                             String(stock.rankEV_EBIT),
-                            String(stock.roic),
+                            stock.roic <= 0
+                                ? chalk.red(String(stock.roic) + "%")
+                                : chalk.green(String(stock.roic) + "%"),
                             String(stock.rankROIC),
                             String(stock.rankMagicFormula),
+                            String(stock.liquidezMediaDiaria),
                             String(stock.setor),
                             String(stock.subsetor),
                             String(stock.segmento),

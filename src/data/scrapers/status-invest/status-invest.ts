@@ -104,6 +104,7 @@ class StatusInvestScraper extends Scraper<Result> {
             p_Ativo: data.p_Ativo,
             companyName: data.companyName,
             liquidezCorrente: data.liquidezCorrente,
+            liquidezMediaDiaria: data.liquidezMediaDiaria,
             segmento: company?.segment?.name,
             subsetor: company?.segment?.subsector?.name,
             setor: company?.segment?.subsector?.sector?.name,

@@ -4,26 +4,9 @@ import stocksToRemove from "./stocks-to-remove";
 
 type Ticker = string;
 type StocksByTicker = Map<Ticker, StockWithRank>;
-type AvailableColumns = keyof StockWithRank;
 
 class MagicFormula {
-    private readonly defaultColumnsToShow: AvailableColumns[] = [
-        "ticker",
-        "rankMagicFormula",
-        "rankEV_EBIT",
-        "rankROIC",
-        "ev_Ebit",
-        "roic",
-        "currentPrice",
-        "liquidezCorrente",
-        "shouldExclude",
-        "setor",
-        "subsetor",
-        "segmento",
-    ];
-
     private stocksByTicker: StocksByTicker = new Map([]);
-    private columnsToShow: AvailableColumns[] = this.defaultColumnsToShow;
 
     calculate(stocks: Stock[]) {
         const filtered = stocks.filter((stock) => stock.roic && stock.ev_Ebit);
@@ -36,12 +19,6 @@ class MagicFormula {
         this.reset();
 
         return result;
-    }
-
-    setColumnsToShow(columnsToShow: AvailableColumns[]) {
-        this.columnsToShow = columnsToShow;
-
-        return this;
     }
 
     private mapStocksByTicker(stocks: Stock[]): StocksByTicker {
@@ -84,9 +61,6 @@ class MagicFormula {
             a.rankMagicFormula = rankA;
             b.rankMagicFormula = rankB;
 
-            this.removeUnwantedColumns(a);
-            this.removeUnwantedColumns(b);
-
             return rankA - rankB;
         });
     }
@@ -99,17 +73,8 @@ class MagicFormula {
         return badSector || badEvEbit || badRoic;
     }
 
-    private removeUnwantedColumns(stock: StockWithRank) {
-        Object.keys(stock).forEach((key) => {
-            if (!this.columnsToShow.includes(key as keyof StockWithRank)) {
-                delete stock[key as keyof StockWithRank];
-            }
-        });
-    }
-
     private reset() {
         this.stocksByTicker = new Map([]);
-        this.columnsToShow = this.defaultColumnsToShow;
     }
 }
 

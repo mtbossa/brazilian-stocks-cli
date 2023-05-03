@@ -10,6 +10,7 @@ type StockParams = {
     readonly companyName?: string;
     readonly volume2Months?: string;
     readonly liquidezCorrente?: number;
+    readonly liquidezMediaDiaria?: number;
     readonly setor?: string;
     readonly subsetor?: string;
     readonly segmento?: string;
@@ -27,6 +28,7 @@ export class Stock {
     public readonly companyName: string;
     public readonly volume2Months: string;
     public readonly liquidezCorrente: number;
+    public readonly liquidezMediaDiaria: number;
     public readonly setor: string;
     public readonly subsetor: string;
     public readonly segmento: string;
@@ -43,6 +45,7 @@ export class Stock {
         this.companyName = properties.companyName || "";
         this.volume2Months = properties.volume2Months || "";
         this.liquidezCorrente = properties.liquidezCorrente || 0;
+        this.liquidezMediaDiaria = properties.liquidezMediaDiaria || 0;
         this.setor = properties.setor || "";
         this.subsetor = properties.subsetor || "";
         this.segmento = properties.segmento || "";
