@@ -10,6 +10,8 @@ class MagicFormula {
 
     calculate(stocks: Stock[]) {
         const filtered = stocks.filter((stock) => stock.roic && stock.ev_Ebit);
+        // console.log("calculate stocks", stocks);
+        // console.log("calculate", filtered);
         this.stocksByTicker = this.mapStocksByTicker(filtered);
         this.rankEV_EBIT();
         this.rankROIC();

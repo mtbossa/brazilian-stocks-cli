@@ -38,8 +38,6 @@ export const strategySelectionHandler = async (answers: prompts.Answers<PromptNa
 
             spinner.stop(true);
 
-            console.clear();
-
             const headers = [
                 "Posição",
                 "Ticker",
@@ -95,37 +93,35 @@ export const strategySelectionHandler = async (answers: prompts.Answers<PromptNa
                 columnCount: headers.length,
             };
 
+            const rows = ranked.map((stock, index) => {
+                return [
+                    String(index + 1),
+                    String(stock.ticker),
+                    String(stock.currentPrice),
+                    stock.ev_Ebit <= 0
+                        ? chalk.red(String(stock.ev_Ebit))
+                        : chalk.green(String(stock.ev_Ebit)),
+                    String(stock.rankEV_EBIT),
+                    stock.roic <= 0
+                        ? chalk.red(String(stock.roic) + "%")
+                        : chalk.green(String(stock.roic) + "%"),
+                    String(stock.rankROIC),
+                    String(stock.rankMagicFormula),
+                    String(stock.liquidezMediaDiaria),
+                    String(stock.setor),
+                    String(stock.subsetor),
+                    String(stock.segmento),
+                    String(stock.shouldExclude ? chalk.bold.red("Sim") : chalk.bold.green("Não")),
+                ];
+            });
+
+            console.log(rows);
+
             await printer
                 .resetLastSelectedChoice()
                 .setHeaders(headers.map((header) => chalk.bold(header)))
                 .setTableConfig(stream_config)
-                .setRows(
-                    ranked.map((stock, index) => {
-                        return [
-                            String(index + 1),
-                            String(stock.ticker),
-                            String(stock.currentPrice),
-                            stock.ev_Ebit <= 0
-                                ? chalk.red(String(stock.ev_Ebit))
-                                : chalk.green(String(stock.ev_Ebit)),
-                            String(stock.rankEV_EBIT),
-                            stock.roic <= 0
-                                ? chalk.red(String(stock.roic) + "%")
-                                : chalk.green(String(stock.roic) + "%"),
-                            String(stock.rankROIC),
-                            String(stock.rankMagicFormula),
-                            String(stock.liquidezMediaDiaria),
-                            String(stock.setor),
-                            String(stock.subsetor),
-                            String(stock.segmento),
-                            String(
-                                stock.shouldExclude
-                                    ? chalk.bold.red("Sim")
-                                    : chalk.bold.green("Não")
-                            ),
-                        ];
-                    })
-                )
+                .setRows(rows)
                 .printTable();
 
             break;

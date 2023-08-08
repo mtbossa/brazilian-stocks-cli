@@ -23,29 +23,29 @@
     },
     "devDependencies": {
         "@types/cli-spinner": "^0.2.1",
-        "@types/node": "^18.16.1",
+        "@types/node": "^18.17.3",
         "@types/node-emoji": "^1.8.2",
         "@types/prompts": "^2.4.4",
-        "@typescript-eslint/eslint-plugin": "^5.59.1",
-        "@typescript-eslint/parser": "^5.59.1",
-        "eslint": "^8.39.0",
-        "eslint-config-prettier": "^8.8.0",
+        "@typescript-eslint/eslint-plugin": "^5.62.0",
+        "@typescript-eslint/parser": "^5.62.0",
+        "eslint": "^8.46.0",
+        "eslint-config-prettier": "^8.10.0",
         "eslint-plugin-prettier": "^4.2.1",
-        "husky": "^8.0.0",
-        "lint-staged": "^13.2.2",
+        "husky": "^8.0.3",
+        "lint-staged": "^13.2.3",
         "nodemon": "^2.0.22",
         "prettier": "2.8.8",
-        "prisma": "^4.13.0",
+        "prisma": "^4.16.2",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "^4.2.0",
-        "typescript": "^5.0.4"
+        "typescript": "^5.1.6"
     },
     "engines": {
         "node": "18.x"
     },
     "dependencies": {
         "@prisma/client": "4.13.0",
-        "chalk": "^4.x",
+        "chalk": "^4.1.2",
         "cli-spinner": "^0.2.10",
         "csv-parser": "^3.0.0",
         "node-emoji": "^1.11.0",
@@ -53,7 +53,7 @@
         "puppeteer": "^19.11.1",
         "puppeteer-extra": "^3.3.6",
         "puppeteer-extra-plugin-stealth": "^2.11.2",
-        "puppeteer-table-parser": "^2.1.0",
+        "puppeteer-table-parser": "^2.1.1",
         "table": "^6.8.1"
     },
     "prisma": {

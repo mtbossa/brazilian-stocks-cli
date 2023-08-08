@@ -5,48 +5,57 @@ import { Stock } from "@data/models/stock";
 import { prismaClient } from "@data/db";
 import scrapeResult from "./fixtures/result.json";
 import { print_new_line } from "@helpers/new_line";
+import { log } from "console";
 
-export interface Result {
+type Data = {
     companyId: number;
     companyName: string;
     ticker: string;
     price: number;
-    p_L: number;
+    p_l: number;
     dy?: number;
-    p_VP: number;
-    p_Ebit: number;
-    p_Ativo: number;
-    eV_Ebit: number;
-    margemBruta: number;
-    margemEbit: number;
-    peg_Ratio: number;
-    receitas_Cagr5: number;
-    lucros_Cagr5: number;
-    liquidezMediaDiaria: number;
-    margemLiquida: number;
-    p_SR: number;
-    p_CapitalGiro: number;
-    p_AtivoCirculante: number;
-    giroAtivos: number;
+    p_vp: number;
+    p_ebit: number;
+    p_ativo: number;
+    ev_ebit: number;
+    margebruta: number;
+    margemebit: number;
+    peg_ratio: number;
+    receitas_cagr5: number;
+    lucros_cagr5: number;
+    liquidezmediadiaria: number;
+    margemliquida: number;
+    p_sr: number;
+    p_capitalgiro: number;
+    p_ativocirculante: number;
+    giroativos: number;
     roe: number;
     roa: number;
     roic: number;
-    dividaliquidaPatrimonioLiquido: number;
-    dividaLiquidaEbit: number;
-    pl_Ativo: number;
-    passivo_Ativo: number;
-    liquidezCorrente: number;
+    dividaliquidapatrimonioliquido: number;
+    dividajiquidaebit: number;
+    pl_ativo: number;
+    passivo_ativo: number;
+    liquidezcorrente: number;
     vpa: number;
     lpa: number;
-    valorMercado: number;
+    valormercado: number;
+};
+export interface Result {
+    list: Data[];
 }
 
-class StatusInvestScraper extends Scraper<Result> {
+class StatusInvestScraper extends Scraper<Data> {
     async scrape() {
         if (process.env.OFFLINE_MODE === "true") {
             print_new_line();
             console.log("Offline mode is on, using fixtures");
-            return scrapeResult as Result[];
+            return scrapeResult.map((data) => ({
+                ...data,
+                dividajiquidaebit: 0,
+                margebruta: 0,
+                lucros_cagr5: 0,
+            })) as Data[];
         }
 
         puppeteer.use(StealthPlugin());
@@ -66,14 +75,15 @@ class StatusInvestScraper extends Scraper<Result> {
             response.url().includes("advancedsearchresult")
         );
 
-        const result: Result[] = await response.json();
+        const result: Result = await response.json();
 
         await browser.close();
 
-        return result;
+        return result.list;
     }
 
-    async parseToStock(data: Result): Promise<Stock> {
+    async parseToStock(data: Data): Promise<Stock> {
+        console.log({ data });
         const company = await prismaClient.company.findFirst({
             where: {
                 code: {
@@ -96,15 +106,15 @@ class StatusInvestScraper extends Scraper<Result> {
         return new Stock({
             ticker: data.ticker,
             currentPrice: `R$ ${data.price.toString()}`,
-            ev_Ebit: data.eV_Ebit,
+            ev_Ebit: data.ev_ebit,
             roic: data.roic,
-            p_L: data.p_L,
-            p_VP: data.p_VP,
-            p_Ebit: data.p_Ebit,
-            p_Ativo: data.p_Ativo,
+            p_L: data.p_l,
+            p_VP: data.p_vp,
+            p_Ebit: data.p_ebit,
+            p_Ativo: data.p_ativo,
             companyName: data.companyName,
-            liquidezCorrente: data.liquidezCorrente,
-            liquidezMediaDiaria: data.liquidezMediaDiaria,
+            liquidezCorrente: data.liquidezcorrente,
+            liquidezMediaDiaria: data.liquidezmediadiaria,
             segmento: company?.segment?.name,
             subsetor: company?.segment?.subsector?.name,
             setor: company?.segment?.subsector?.sector?.name,
